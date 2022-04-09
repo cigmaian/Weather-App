@@ -7,33 +7,37 @@
     <title>Weather-App</title>
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
+     <script src="https://kit.fontawesome.com/a538d6fa29.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-
-        <header class="header">
-      <h1 class="page-name"><i class="fas fa-cloud-sun"></i>Weather App</h1>
-    </header>
-    <main class="main">
-      <form class="form" id="searchForm" novalidate>
-        <input
-          class="input"
-          id="searchInput"
-          type="text"
-          placeholder="Enter city name"
-        />
-        <button class="btn btn-submit" id="searchBtn" type="submit">
-          Search
-        </button>
-      </form>
-      <div class="search-result" id="searchResult">
-        <h3 id="cityName"></h3>
-        <p id="temperature"></p>
-        <p id="feelsLike"></p>
-        <p id="humidity"></p>
-        <p id="wind"></p>
+  </head>
+  <body>
+    <div id="main-container">
+      <header>
+        <form data-form>
+          <div class="form-group">
+            <button class="submit-btn" data-btn>
+              <i class="fas fa-search"></i>
+            </button>
+            <input type="text" placeholder="Search city" data-input/>
+            <br />
+            <span class="error-msg" data-err>No matching location found!</span>
+          </div>
+        </form>
+      </header>
+      <div class="main-weather-display info">
+        <div class="general-info">
+          <p class="condition">MOSTLY SUNNY</p>
+          <h1 class="location">GUANGZHOU, CHINA</h1>
+          <span class="degrees">69</span>
+        </div>
+        <div class="weather-details info">
+          <p class="feels-like">FEELS LIKE: 70</p>
+          <p class="wind-mph">WIND: 5 MPH</p>
+          <p class="humidity">HUMIDITY: 69</p>
+        </div>
       </div>
-    </main>
-    
+    </div>
 </body>
 </html> 
