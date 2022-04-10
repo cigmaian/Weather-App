@@ -12,7 +12,7 @@ function handleSubmit(e) {
 
 async function getWeatherData(location) {
   const response = await fetch(
-    `http://api.weatherapi.com/v1/forecast.json?key=1986480656ec490d950204923202611&q=${location}`,
+    `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=afe58550b3cc0da34d73667516df652e&units=metric`,
     {
       mode: 'cors',
     }
@@ -44,27 +44,14 @@ function throwErrorMsg() {
 function processData(weatherData) {
   // grab all the data i want to display on the page
   const myData = {
-    condition: weatherData.current.condition.text,
-    feelsLike: {
-      f: Math.round(weatherData.current.feelslike_f),
-      c: Math.round(weatherData.current.feelslike_c),
-    },
-    currentTemp: {
-      f: Math.round(weatherData.current.temp_f),
-      c: Math.round(weatherData.current.temp_c),
-    },
-    wind: Math.round(weatherData.current.wind_mph),
-    humidity: weatherData.current.humidity,
-    location: weatherData.location.name.toUpperCase(),
+    condition: weatherData.weather.map(el => el.description.toUpperCase()),
+    feelsLike: Math.round(weatherData.main.feels_like),
+    currentTemp: Math.round(weatherData.main.temp),    
+    wind: Math.round(weatherData.wind.speed),
+    humidity: weatherData.main.humidity,
+    location: weatherData.name.toUpperCase(),
+    country: weatherData.sys.country.toUpperCase(), 
   };
-
-  // if in the US, add state
-  // if not, add country
-  if (weatherData.location.country === 'United States of America') {
-    myData['region'] = weatherData.location.region.toUpperCase();
-  } else {
-    myData['region'] = weatherData.location.country.toUpperCase();
-  }
 
   return myData;
 }
@@ -83,12 +70,12 @@ function displayData(newData) {
   document.querySelector('.condition').textContent = newData.condition;
   document.querySelector(
     '.location'
-  ).textContent = `${newData.location}, ${newData.region}`;
-  document.querySelector('.degrees').textContent = newData.currentTemp.f;
+  ).textContent = `${newData.location} /  ${newData.country}`;
+  document.querySelector('.degrees').textContent = newData.currentTemp;
   document.querySelector(
     '.feels-like'
-  ).textContent = `FEELS LIKE: ${newData.feelsLike.f}`;
-  document.querySelector('.wind-mph').textContent = `WIND: ${newData.wind} MPH`;
+  ).textContent = `FEELS LIKE: ${newData.feelsLike}`;
+  document.querySelector('.wind-mph').textContent = `WIND: ${newData.wind} KM/H`;
   document.querySelector(
     '.humidity'
   ).textContent = `HUMIDITY: ${newData.humidity}`;
@@ -104,6 +91,11 @@ function fetchWeather() {
   const userLocation = input.value;
   getWeatherData(userLocation);
 }
+
+
+let url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=afe58550b3cc0da34d73667516df652e&units=metric ";
+
+fetch(url).then(res => res.json()).then(data => console.log(data));
 
 
 /*

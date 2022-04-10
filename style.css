@@ -114,7 +114,7 @@ input[type='text']::placeholder {
 }
 
 .degrees::after {
-  content: '\00B0 F';
+  content: '\00B0 C';
   font-size: 3rem;
   position: absolute;
   top: 1.8rem;
@@ -142,9 +142,9 @@ input[type='text']::placeholder {
 }
 
 .feels-like::after {
-  content: '\00B0 F';
+  content: '\00B0 C';
   position: absolute;
-  bottom: 1.1rem;
+  bottom: .9rem;
   left: 11.4rem;
   font-size: 1rem;
 }
