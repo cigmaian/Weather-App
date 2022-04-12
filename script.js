@@ -28,6 +28,23 @@ async function getWeatherData(location) {
   }
 }
 
+async function onLoadData(loc){
+  let res = await fetch(
+    `https://api.openweathermap.org/data/2.5/weather?q=Cluj-Napoca&appid=afe58550b3cc0da34d73667516df652e&units=metric`, 
+    {mode: "cors"}
+  );
+  if(res.status == 400){
+    throwErrorMsg()
+  }else{
+    error.style.display = "none";
+    let weatherData = await res.json();
+    let newData = processData(weatherData);
+    displayData(newData);
+  }
+}
+
+window.onload = onLoadData;
+
 function throwErrorMsg() {
   error.style.display = 'block';
   if (error.classList.contains('fade-in')) {
@@ -93,12 +110,40 @@ function fetchWeather() {
 }
 
 
-let url = "https://api.openweathermap.org/data/2.5/weather?q=London&appid=afe58550b3cc0da34d73667516df652e&units=metric ";
+
+
+
+
+let url = "https://api.openweathermap.org/data/2.5/weather?q=Bucharest&appid=afe58550b3cc0da34d73667516df652e&units=metric ";
 
 fetch(url).then(res => res.json()).then(data => console.log(data));
 
 
+
+
+
 /*
+
+
+// html
+
+
+<div class="main-weather-display info">
+        <div class="general-info">
+          <p class="condition">MOSTLY SUNNY</p>
+          <h1 class="location">GUANGZHOU, CHINA</h1>
+          <span class="degrees">69</span>
+        </div>
+        <div class="weather-details info">
+          <p class="feels-like">FEELS LIKE: 70</p>
+          <p class="wind-mph">WIND: 5 MPH</p>
+          <p class="humidity">HUMIDITY: 69</p>
+        </div>
+      </div>
+
+
+  ///
+
 
 
 ///
